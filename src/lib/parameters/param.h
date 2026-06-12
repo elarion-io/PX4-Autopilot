@@ -342,8 +342,9 @@ __EXPORT int		param_export(const char *filename, param_filter_func filter);
  * This function merges the imported parameters with the current parameter set.
  *
  * @param fd		File descriptor to import from (-1 selects the FLASH storage).
- * @return		Zero on success, nonzero if an error occurred during import.
- *			Note that in the failure case, parameters may be inconsistent.
+ * @return		Zero on success, 1 if the source is blank (nothing stored
+ *			yet), negative if an error occurred during import. Note that
+ *			in the error case, parameters may be inconsistent.
  */
 __EXPORT int		param_import(int fd);
 
@@ -354,8 +355,10 @@ __EXPORT int		param_import(int fd);
  * values from a file.
  *
  * @param fd		File descriptor to import from (-1 selects the FLASH storage).
- * @return		Zero on success, nonzero if an error occurred during import.
- *			Note that in the failure case, parameters may be inconsistent.
+ * @return		Zero on success, 1 if the source is blank (all parameters
+ *			were reset to defaults), negative if an error occurred during
+ *			import. Note that in the error case, parameters may be
+ *			inconsistent.
  */
 __EXPORT int		param_load(int fd);
 
