@@ -85,6 +85,7 @@
 #define SERIAL1_DEV    0x04
 
 #define APP_LOAD_ADDRESS               0x08020000
+#define BOOT_DELAY_ADDRESS             0x000001a0
 #define BOOTLOADER_DELAY               5000
 #define INTERFACE_USB                  1
 #define INTERFACE_USB_CONFIG           "/dev/ttyACM0"
