@@ -1,0 +1,40 @@
+#!/bin/sh
+#
+# Elarion H7 specific defaults
+#------------------------------------------------------------------------------
+
+# Battery: 10k/1k divider, 4-in-1 ESC current sensor on the ESC connector
+param set-default BAT1_V_DIV 11.0
+param set-default BAT1_A_PER_V 40.0
+param set-default BAT2_V_DIV 11.0
+
+# system_power unavailable
+param set-default CBRK_SUPPLY_CHK 894281
+
+# no built-in compass (external ones on the Extra connector are detected)
+param set-default SYS_HAS_MAG 0
+
+param set-default IMU_GYRO_RATEMAX 2000
+
+# CRSF / ELRS receiver on the RX connector, with telemetry
+param set-default RC_CRSF_PRT_CFG 300
+param set-default RC_CRSF_TEL_EN 1
+
+# IRC Tramp VTX control needs the vtx driver, which v1.17 does not have.
+
+# Analog OSD
+param set-default OSD_ATXXXX_CFG 2
+param set-default OSD_MVLQ_EN 1
+
+# Bidirectional DShot600 on outputs 1-6 (TIM3, TIM5). v1.17 selects the rate per timer
+# and bidirectional mode globally; it has no extended telemetry support.
+param set-default PWM_MAIN_TIM0 -3
+param set-default PWM_MAIN_TIM1 -3
+param set-default DSHOT_BIDIR_EN 1
+
+# 16 MiB flash blackbox (on SD card builds /dev/mtd0 does not exist):
+# v1.17 cannot cap log file size, so keep only the most recent flights
+if [ -e /dev/mtd0 ]
+then
+	param set-default SDLOG_DIRS_MAX 8
+fi
