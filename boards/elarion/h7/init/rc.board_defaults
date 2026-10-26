@@ -26,11 +26,11 @@ param set-default RC_CRSF_TEL_EN 1
 param set-default OSD_ATXXXX_CFG 2
 param set-default OSD_MVLQ_EN 1
 
-# Bidirectional DShot600 on outputs 1-6 (TIM3, TIM5). v1.17 selects the rate per timer
-# and bidirectional mode globally; it has no extended telemetry support.
+# DShot600 on outputs 1-6 (TIM3, TIM5). v1.17 drives only one timer when bidirectional
+# DShot is enabled, and motors 1-2 and 3-4 sit on different timers, so it stays off here.
 param set-default PWM_MAIN_TIM0 -3
 param set-default PWM_MAIN_TIM1 -3
-param set-default DSHOT_BIDIR_EN 1
+param set-default DSHOT_BIDIR_EN 0
 
 # 16 MiB flash blackbox (on SD card builds /dev/mtd0 does not exist):
 # v1.17 cannot cap log file size, so keep only the most recent flights
