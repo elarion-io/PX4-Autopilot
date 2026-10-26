@@ -119,6 +119,15 @@ public:
 
 	virtual ~DynamicSparseLayer()
 	{
+#ifdef __PX4_NUTTX
+		// The layers are statics that must outlive every task. NuttX registers
+		// static destructors with __cxa_atexit on the task that ran the
+		// constructors (the init task) and runs them when that task exits,
+		// which on boards without a console happens right after the startup
+		// script. Freeing or zeroing the layer there wipes the runtime
+		// defaults while the system keeps running, so leak it instead.
+		return;
+#endif
 		// Take the lock so concurrent readers can't observe a half-freed
 		// state (relevant on POSIX, where DynamicSparseLayer instances are
 		// statics in parameters.cpp and other threads may still be calling
