@@ -46,3 +46,38 @@
 *
 */
 PARAM_DEFINE_INT32(OSD_ATXXXX_CFG, 0);
+
+/**
+* Show Multiversity link statistics
+*
+* Show the per-radio link statistics a Multiversity CRSF combiner
+* publishes on RC channels 11-16 (as PWM = value + 1000): one row each
+* for the 400, 800 and 2.4 radios with RSSI and SNR.
+*
+* @boolean
+* @group OSD
+*
+*/
+PARAM_DEFINE_INT32(OSD_MVLQ_EN, 0);
+
+/**
+* Multiversity link statistics column
+*
+* @min 0
+* @max 19
+* @group OSD
+*
+*/
+PARAM_DEFINE_INT32(OSD_MVLQ_X, 1);
+
+/**
+* Multiversity link statistics row
+*
+* First of the three rows.
+*
+* @min 0
+* @max 13
+* @group OSD
+*
+*/
+PARAM_DEFINE_INT32(OSD_MVLQ_Y, 6);
