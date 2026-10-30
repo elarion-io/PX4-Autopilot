@@ -142,14 +142,17 @@ int BMP581::collect()
 
 	int_status = get_interrupt_status();
 
-	if (int_status & BMP5_INT_ASSERTED_DRDY) {
-		ret = get_sensor_data(&data);
+	if (!(int_status & BMP5_INT_ASSERTED_DRDY)) {
+		perf_cancel(_sample_perf);
+		return -EAGAIN;
+	}
 
-		if (ret != PX4_OK) {
-			perf_count(_comms_errors);
-			perf_cancel(_sample_perf);
-			return -EIO;
-		}
+	ret = get_sensor_data(&data);
+
+	if (ret != PX4_OK) {
+		perf_count(_comms_errors);
+		perf_cancel(_sample_perf);
+		return -EIO;
 	}
 
 	//publish
